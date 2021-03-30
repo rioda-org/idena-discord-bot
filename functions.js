@@ -186,7 +186,8 @@ exports.getInvites = async function () {
     return embed
 }
 exports.getIdentities = async function () {
-    let identities = await axios.get('http://api.idena.io/api/Epoch/64/IdentityStatesInterimSummary');
+    let latestEpoch = await axios.get('http://api.idena.io/api/Epoch/Last');
+    let identities = await axios.get(`http://api.idena.io/api/Epoch/${latestEpoch.data.result.epoch}/IdentityStatesInterimSummary`);
     const embed = new Discord.MessageEmbed()
         .setColor(colorize("identities"))
         .setTitle('Identities')
