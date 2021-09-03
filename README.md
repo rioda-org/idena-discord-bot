@@ -2,10 +2,15 @@
 
 You can add this bot to your Discord server and use it as a helper bot.
 Call bot using commands and it will give you usefull information:
+
 .price - current price of iDNA coin
+
 .coins - details about current supply
+
 .rewards - daily mining rewards estimate
+
 .invites - number of generated and activated invitation codes for current epoch
+
 .identities - number of identites per status
 
 To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of ram.
