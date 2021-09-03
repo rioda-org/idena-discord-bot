@@ -47,11 +47,11 @@ async function qtrade_price() {
         .setTitle('Qtrade iDNA/BTC')
         .addFields({
             name: 'Ask/Bid',
-            value: qtrade_price.data.data.ask * 100000000 + "/" + qtrade_price.data.data.bid * 100000000 + " Sat",
+            value: (qtrade_price.data.data.ask * 100000000).toFixed(0) + "/" + (qtrade_price.data.data.bid * 100000000).toFixed(0) + " Sat",
             inline: true
         }, {
             name: 'High/Low',
-            value: qtrade_price.data.data.day_high * 100000000 + "/" + qtrade_price.data.data.day_low * 100000000 + " Sat",
+            value: (qtrade_price.data.data.day_high * 100000000).toFixed(0) + "/" + (qtrade_price.data.data.day_low * 100000000).toFixed(0) + " Sat",
             inline: true
         }, {
             name: 'Volume',
@@ -76,11 +76,11 @@ async function hotbit_price() {
         .setTitle('Hotbit iDNA/BTC')
         .addFields({
             name: 'Ask/Bid',
-            value: parseFloat(hotbit_depth.data.result.asks[0][0]) * 100000000 + "/" + parseFloat(hotbit_depth.data.result.bids[0][0]) * 100000000 + " Sat",
+            value: (parseFloat(hotbit_depth.data.result.asks[0][0]) * 100000000).toFixed(0) + "/" + (parseFloat(hotbit_depth.data.result.bids[0][0]) * 100000000).toFixed(0) + " Sat",
             inline: true
         }, {
             name: 'High/Low',
-            value: parseFloat(hotbit_status.data.result.high) * 100000000 + "/" + parseFloat(hotbit_status.data.result.low) * 100000000 + " Sat",
+            value: (parseFloat(hotbit_status.data.result.high) * 100000000).toFixed(0) + "/" + (parseFloat(hotbit_status.data.result.low) * 100000000).toFixed(0) + " Sat",
             inline: true
         }, {
             name: 'Volume',
@@ -97,11 +97,11 @@ async function vitex_price() {
         .setTitle('ViteX iDNA/BTC')
         .addFields({
             name: 'Ask/Bid',
-            value: vitex.data.data.askPrice * 100000000 + "/" + vitex.data.data.bidPrice * 100000000 + " Sat",
+            value: (vitex.data.data.askPrice * 100000000).toFixed(0) + "/" + (vitex.data.data.bidPrice * 100000000).toFixed(0) + " Sat",
             inline: true
         }, {
             name: 'High/Low',
-            value: vitex.data.data.highPrice * 100000000 + "/" + vitex.data.data.lowPrice * 100000000 + " Sat",
+            value: (vitex.data.data.highPrice * 100000000).toFixed(0) + "/" + (vitex.data.data.lowPrice * 100000000).toFixed(0) + " Sat",
             inline: true
         }, {
             name: 'Volume',
