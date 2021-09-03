@@ -32,7 +32,7 @@ npm install
 npm i pm2 -g
 
 6. Start bot
-pm2 start price.js
+pm2 start bot.js
 
 7. Go to Discord developer portal https://discord.com/developers/
 - Create application, give it a name and picture
@@ -42,7 +42,7 @@ pm2 start price.js
 nano .env
 
 9. Reload bot
-pm2 restart price --update-env
+pm2 restart bot --update-env
 
 10. Back in developer portal, go to "OAuth2"
 - check "bot" from SCOPES and below check "Send Messages" and "Read Message History" from BOT PERMISSIONS
