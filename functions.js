@@ -185,6 +185,7 @@ exports.getInvites = async function () {
         })
     return embed
 }
+
 exports.getIdentities = async function () {
     let latestEpoch = await axios.get('http://api.idena.io/api/Epoch/Last');
     let identities = await axios.get(`http://api.idena.io/api/Epoch/${latestEpoch.data.result.epoch}/IdentityStatesInterimSummary`);
@@ -194,5 +195,17 @@ exports.getIdentities = async function () {
     identities.data.result.forEach(element => {
         embed.addField(element.value, element.count);
     });
+    return embed
+}
+
+exports.fix = async function () {
+    const embed = new Discord.MessageEmbed()
+        .setColor(colorize("fix"))
+        .setTitle('Fix Desktop App')
+        .addFields({
+			name: 'Instructions:',
+            value: 'Visit location: %appdata%\\Idena\\node\\datadir\ndelete folders "idenachain.db" and "ipfs"\n\nVisit location: %appdata%\\Idena\ndelete "setting.json"\n\nAnd restart your PC.',
+            inline: true
+        })
     return embed
 }
