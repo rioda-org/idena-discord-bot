@@ -26,6 +26,8 @@ bot.on('message', async message => {
       message.channel.send(await functions.getInvites());
     } else if (command === 'identities') {
       message.channel.send(await functions.getIdentities());
+    } else if (command === 'fix') {
+      message.channel.send(await functions.fix());
     }
   } catch (error) {
     console.log(error);
