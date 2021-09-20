@@ -28,6 +28,12 @@ bot.on('message', async message => {
       message.channel.send(await functions.getIdentities());
     } else if (command === 'fix') {
       message.channel.send(await functions.fix());
+    } else if (command === 'training') {
+      message.channel.send(await functions.training());
+    } else if (command === 'desktop') {
+      message.channel.send(await functions.desktop());
+    } else if (command === 'web') {
+      message.channel.send(await functions.web());
     }
   } catch (error) {
     console.log(error);
