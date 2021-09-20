@@ -209,3 +209,39 @@ exports.fix = async function () {
         })
     return embed
 }
+
+exports.training = async function () {
+    const embed = new Discord.MessageEmbed()
+        .setColor(colorize("training"))
+        .setTitle('Validation training')
+        .addFields({
+			name: 'Instructions:',
+            value: 'https://idena.site/faq/how-to-try-out-idena-training-valdiation',
+            inline: true
+        })
+    return embed
+}
+
+exports.desktop = async function () {
+    const embed = new Discord.MessageEmbed()
+        .setColor(colorize("desktop"))
+        .setTitle('Desktop App')
+        .addFields({
+			name: 'Suggestions:',
+            value: '- Check your internet connection quality here (http://www.dslreports.com/speedtest). If your connection is graded A or B, you have good connection. If it\'s C or worse, it is bad. If you are connected via Wifi, try connecting using LAN cable and check connection again. If your connection is still bad, you MUST use Web App (https://app.idena.io/) for validation.\n\n- If you are using Windows OS, Install NetTime, program which will keep your clock in perfect syncronisation which is important for validation (http://www.timesynctool.com/NetTimeSetup-314.exe)\n\n- Make sure you turn off any other aplication that uses internet.',
+            inline: true
+        })
+    return embed
+}
+
+exports.web = async function () {
+    const embed = new Discord.MessageEmbed()
+        .setColor(colorize("web"))
+        .setTitle('Web App')
+        .addFields({
+			name: 'Suggestions:',
+            value: '- If you are using Windows OS, install NetTime, program which will keep your clock in perfect syncronisation which is important for validation (http://www.timesynctool.com/NetTimeSetup-314.exe)\n\n- Make sure you turn off every other aplication that uses internet\n\n- Do not run Idena Desktop App with node during validation if you have bad internet\n\n- Do not use JavaScript blocking extensions for your browser, Brave browser has built in blockers and will cause problem if you don\'t know how to configure it\n\n- Do not use browser with auto translate option\n\n- Sign in to Web App 6 minutes before validation starts or else you will fail validation with "Late submision" result',
+            inline: true
+        })
+    return embed
+}
