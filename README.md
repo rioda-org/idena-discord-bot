@@ -13,6 +13,12 @@ Call bot using commands and it will give you usefull information:
 
 ```.identities``` - number of identites per status
 
+```.fix``` - tells you how to fix Desktop App on Windows
+
+```.desktop``` - recomendations for running Desktop App
+
+```.web``` - recomendations for running Web App
+
 To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of ram.
 
 # Instalation steps:
