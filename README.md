@@ -1,4 +1,4 @@
-# idena-price-bot
+# idena-discord-bot
 
 You can add this bot to your Discord server and use it as a helper bot.
 Call bot using commands and it will give you usefull information:
