@@ -25,7 +25,7 @@ To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of
 
 1. Download files from this repository to some directory on your server
 
-2. Install node.js v16.19.1, that version is compatible
+2. Install node.js v16.x, that version is compatible
 
 ```curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -```
 
