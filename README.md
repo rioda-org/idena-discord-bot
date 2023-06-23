@@ -33,7 +33,7 @@ To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of
 
 5. Install pm2 process manager ```npm i pm2 -g```
 
-6. Start bot ```pm2 start bot.js```
+6. Start bot ```pm2 start bot.js``` and for auto start on server reboot ```pm2 startup```
 
 7. Go to Discord developer portal https://discord.com/developers/
 - Create application, give it a name and picture
