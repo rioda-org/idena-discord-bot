@@ -27,7 +27,7 @@ To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of
 
 2. Install latest node.js ```sudo snap install node --classic```
 
-3. Navigate to directory where you have downloaded files for bot, something like ```cd idena-price-bot```
+3. Navigate to directory where you have downloaded files for bot, something like ```cd idena-discord-bot```
 
 4. Install dependencies ```npm install```
 
