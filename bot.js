@@ -12,20 +12,6 @@ bot.on('ready', () => {
 
 bot.on('message', async message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
-  
-/* part for spoiling invitations, need testing
-  {
-	  if(functions.validateInvite(message.content)){
-		  //invite detected, we need to spoil it
-		  let result = await functions.spoilInvite(message.content);
-		  if(!result=="undefined")
-		  {message.channel.send(await functions.spoiled());}
-	  else return;
-	  }
-	  else
-		return;
-  }
-*/  
 
   const args = message.content.slice(prefix.length).trim().split(' ');
   const command = args.shift().toLowerCase();
@@ -35,8 +21,8 @@ bot.on('message', async message => {
       message.channel.send(await functions.getIdenaPrice(exchange));
     } else if (command === 'coins') {
       message.channel.send(await functions.getCoins());
-    } else if (command === 'rewards') {
-      message.channel.send(await functions.getRewards());
+    } else if (command === 'staking') {
+      message.channel.send(await functions.getStaking());
     } else if (command === 'invites') {
       message.channel.send(await functions.getInvites());
     } else if (command === 'identities') {
@@ -47,8 +33,6 @@ bot.on('message', async message => {
       message.channel.send(await functions.desktop());
     } else if (command === 'web') {
       message.channel.send(await functions.web());
-    } else if (command === 'invite') {
-      message.channel.send(await functions.invitation());
     } else if (command === 'help') {
       message.channel.send(await functions.help());
     } else if (command === 'wen') {
