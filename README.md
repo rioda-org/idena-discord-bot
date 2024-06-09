@@ -3,11 +3,11 @@
 You can add this bot to your Discord server and use it as a helper bot.
 Call bot using commands and it will give you usefull information:
 
-```.price``` - current price of iDNA coin
+```.price``` - iDNA price on PancakeSwap
 
-```.coins``` - details about current supply
+```.coins``` - iDNA coins supply
 
-```.rewards``` - daily mining rewards estimate
+```.staking``` - gives link for staking rewards calculator
 
 ```.invites``` - number of generated and activated invitation codes for current epoch
 
@@ -19,17 +19,25 @@ Call bot using commands and it will give you usefull information:
 
 ```.web``` - recomendations for running Web App
 
+```.wen``` - shows remaining time until next validation
+
+```.why``` - The answer to a question of all questions
+
+```.white``` - fix for Desktop App white screen problem
+
+```.help``` - lists these commands
+
 To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of ram.
 
 # Instalation steps:
 
 1. Download files from this repository to some directory on your server
 
-2. Install node.js v16.x, that version is compatible
+2. Install node.js v20, that version is compatible
 
-```curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -```
+```curl -fsSL https://fnm.vercel.app/install | bash```
 
-```sudo apt-get install -y nodejs```
+```fnm use --install-if-missing 20```
 
 3. Navigate to directory where you have downloaded files for bot, something like ```cd idena-discord-bot```
 
