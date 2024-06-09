@@ -16,128 +16,35 @@ function numberWithSpaces(x) {
     x = Number(x).toFixed(0);
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
-exports.getIdenaPrice = async function (exchange) {
-    if (exchange == "qtrade") {
-        return qtrade_price();
-    } else if (exchange == "vitex") {
-        return vitex_price();
-    } else if (exchange == "hotbit") {
-        return hotbit_price();
-    } else {
-        return price();
-    }
-}
-
 
 
 async function price() {
-    let price = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=idena&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true');
+    let price = await axios.get('https://api.dexscreener.com/latest/dex/pairs/bsc/0xaa4dce8585528265c6bac502ca9578343f82630f,0x0039344eb266b027393ac6005e564ad13c450119');
 	const embed = new Discord.MessageEmbed()
 	.setColor(colorize("price"))
-	.setTitle('Price by CoinGecko')
+	.setTitle('Price by PancakeSwap')
 	.addFields({
 		name: 'Price',
-		value: '$ ' + price.data.idena.usd,
+		value: '$ ' + price.data.pairs[0].priceUsd,
         inline: true
-	}, {
-		name: 'Market Cap',
-		value: '$ ' + (price.data.idena.usd_market_cap/1000000).toFixed(2) + ' M',
-        inline: false
 	}, {
 		name: '24h Volume',
-		value: '$ ' + (price.data.idena.usd_24h_vol/1000).toFixed(0) + ' K',
+		value: '$ ' + (price.data.pairs[0].volume.h24+price.data.pairs[1].volume.h24).toFixed(2),
         inline: true
 	}, {
-		name: '24h Change',
-		value: (price.data.idena.usd_24h_change).toFixed(2) + '%',
+		name: 'Liquidity',
+		value: '$ ' + (price.data.pairs[0].liquidity.usd+price.data.pairs[1].liquidity.usd).toFixed(2),
         inline: true
 	})
 return embed
 }
 
 
-async function qtrade_price() {
-    let qtrade_price = await axios.get('http://api.qtrade.io/v1/ticker/IDNA_BTC');
-    let qtrade_market = await axios.get('https://api.qtrade.io/v1/market/IDNA_BTC/trades');
-    let sell_volume = 0;
-    let buy_volume = 0;
-    if (qtrade_market.data) {
-        qtrade_market.data.data.trades.forEach(trade => {
-            if (trade.side == 'buy' && isLatest24(trade.created_at)) {
-                buy_volume += parseFloat(trade.amount);
-            } else if (trade.side == 'sell' && isLatest24(trade.created_at)) {
-                sell_volume += parseFloat(trade.amount);
-            }
-        });
-    }
-    const embed = new Discord.MessageEmbed()
-        .setColor(colorize("qtrade"))
-        .setTitle('Qtrade iDNA/BTC')
-        .addFields({
-            name: 'Ask/Bid',
-            value: (qtrade_price.data.data.ask * 100000000).toFixed(0) + "/" + (qtrade_price.data.data.bid * 100000000).toFixed(0) + " Sat",
-            inline: true
-        }, {
-            name: 'High/Low',
-            value: (qtrade_price.data.data.day_high * 100000000).toFixed(0) + "/" + (qtrade_price.data.data.day_low * 100000000).toFixed(0) + " Sat",
-            inline: true
-        }, {
-            name: 'Volume',
-            value: Number(qtrade_price.data.data.day_volume_market).toFixed(0) + " iDNA"
-
-        }, {
-            name: 'Buy/Sell Vol',
-            value: buy_volume.toFixed(0) + "/" + sell_volume.toFixed(0) + " iDNA"
-
-        })
-    return embed
-}
+//0xc1bcdc9eb37d8e72ff0e0ca4bc8d19735b1b38ce idna/busd does not work for some reason
+//0x0039344eb266b027393ac6005e564ad13c450119 idna/usdt
+//0xaa4dce8585528265c6bac502ca9578343f82630f idna/wbnb
 
 
-async function hotbit_price() {
-
-    let hotbit_depth = await axios.get('https://api.hotbit.io/api/v1/order.depth?market=IDNA/BTC&limit=100&interval=1e-8');
-    let hotbit_summary = await axios.get('https://api.hotbit.io/api/v1/market.summary?markets=[%22IDNA/BTC%22]');
-    let hotbit_status = await axios.get('https://api.hotbit.io/api/v1/market.status?market=IDNA/BTC&period=86400');
-    const embed = new Discord.MessageEmbed()
-        .setColor(colorize("hotbit"))
-        .setTitle('Hotbit iDNA/BTC')
-        .addFields({
-            name: 'Ask/Bid',
-            value: (parseFloat(hotbit_depth.data.result.asks[0][0]) * 100000000).toFixed(0) + "/" + (parseFloat(hotbit_depth.data.result.bids[0][0]) * 100000000).toFixed(0) + " Sat",
-            inline: true
-        }, {
-            name: 'High/Low',
-            value: (parseFloat(hotbit_status.data.result.high) * 100000000).toFixed(0) + "/" + (parseFloat(hotbit_status.data.result.low) * 100000000).toFixed(0) + " Sat",
-            inline: true
-        }, {
-            name: 'Volume',
-            value: Number(hotbit_status.data.result.volume).toFixed(0) + " iDNA"
-
-        })
-    return embed
-}
-
-async function vitex_price() {
-    let vitex = await axios.get('https://api.vitex.net/api/v2/market?symbol=IDNA-000_BTC-000');
-    const embed = new Discord.MessageEmbed()
-        .setColor(colorize("vitex"))
-        .setTitle('ViteX iDNA/BTC')
-        .addFields({
-            name: 'Ask/Bid',
-            value: (vitex.data.data.askPrice * 100000000).toFixed(0) + "/" + (vitex.data.data.bidPrice * 100000000).toFixed(0) + " Sat",
-            inline: true
-        }, {
-            name: 'High/Low',
-            value: (vitex.data.data.highPrice * 100000000).toFixed(0) + "/" + (vitex.data.data.lowPrice * 100000000).toFixed(0) + " Sat",
-            inline: true
-        }, {
-            name: 'Volume',
-            value: Number(vitex.data.data.volume).toFixed(0) + " iDNA"
-
-        })
-    return embed
-}
 
 exports.getCoins = async function () {
     let coins = await axios.get('http://api.idena.io/api/Coins');
@@ -175,10 +82,7 @@ exports.getCoins = async function () {
 }
 
 
-exports.getRewards = async function () {
-    let onlineidentities = await axios.get('https://api.idena.io/api/onlineidentities/count');
-    let onlineminers = await axios.get('https://api.idena.io/api/onlineminers/count');
-    let idena_price = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=idena&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true');
+exports.getStaking = async function () {
     const embed = new Discord.MessageEmbed()
         .setColor(colorize("rewards"))
         .setTitle('Minings rewards')
@@ -255,16 +159,6 @@ exports.web = async function () {
     return embed
 }
 
-exports.invitation = async function () {
-    const embed = new Discord.MessageEmbed()
-        .setColor(colorize("invitation"))
-        .addFields({
-			name: 'How to get invitation?',
-            value: 'https://medium.com/idena/how-to-get-idena-invitation-easy-and-fast-ec1faace5cc7',
-            inline: true
-        })
-    return embed
-}
 
 exports.help = async function () {
     const embed = new Discord.MessageEmbed()
@@ -272,35 +166,12 @@ exports.help = async function () {
         .setTitle('Bot help')
         .addFields({
 			name: 'Commands:',
-            value: '`.price` - iDNA price (qtrade/hotbit/vitex)\n`.coins` - iDNA coins supply\n`.rewards` - daily mining rewards\n`.invites` - number of activated invitations\n`.identities` - information about identities\n`.fix` - fix for Desktop App\n`.desktop` - suggestions for using Desktop App\n`.web` - suggestions for using Web App\n`.invite` - link for article on how to get invitation\n`.wen` - remaining time until validation\n`.why` - The answer to a question of all questions\n`.white` - fix for Desktop App white screen problem\n',
+            value: '`.price` - iDNA price on PancakeSwap\n`.coins` - iDNA coins supply\n`.staking` - gives link for staking rewards calculator\n`.invites` - number of activated invitations\n`.identities` - information about identities\n`.fix` - fix for Desktop App\n`.desktop` - suggestions for using Desktop App\n`.web` - suggestions for using Web App\n`.wen` - remaining time until validation\n`.why` - The answer to a question of all questions\n`.white` - fix for Desktop App white screen problem\n',
             inline: true
         })
     return embed
 }
 
-
-
-
-/*
-exports.validateInvite = function (message) {
-	return (/^[0-9a-fA-F]{64}$/i.test(message));
-}
-
-exports.spoilInvite = function (invite) {
-    return axios.post("https://test.idena.site", {"method":"dna_activateInviteToRandAddr","params":[{"key":invite}],"id":1,"key":"test"}).then(response=>response.data.result);
-}
-
-exports.spoiled = async function () {
-    const embed = new Discord.MessageEmbed()
-        .setColor(colorize("spoiled"))
-        .addFields({
-			name: 'Your invitation has been spoiled and wasted:',
-            value: 'Do not share invitation codes publicly. That way we prevent bots from collecting invitation codes.',
-            inline: true
-        })
-    return embed
-}
-*/
 
 exports.wen = async function () {
     let epochInfo = await axios.get('http://api.idena.io/api/Epoch/Last');
@@ -311,7 +182,6 @@ exports.wen = async function () {
         .addFields({
 			name: 'Validation is:',
             value: '<t:'+unixTime+':R> at <t:'+unixTime+':t> ',
-			//'<t:'+unixTime+':t> (<t:'+unixTime+':R>)'
             inline: true
         })
     return embed
