@@ -18,7 +18,7 @@ function numberWithSpaces(x) {
 }
 
 
-async function price() {
+exports.getIdenaPrice = async function () {
     let price = await axios.get('https://api.dexscreener.com/latest/dex/pairs/bsc/0xaa4dce8585528265c6bac502ca9578343f82630f,0x0039344eb266b027393ac6005e564ad13c450119');
 	const embed = new Discord.MessageEmbed()
 	.setColor(colorize("price"))
