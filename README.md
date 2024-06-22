@@ -33,7 +33,9 @@ To host it, you need VPS with Ubuntu server 20.04 or simmilar. Bot uses ~60mb of
 
 1. Download files from this repository to some directory on your server
 
-2. Install node.js v20, that version is compatible
+```git clone https://github.com/rioda-org/idena-discord-bot.git```
+
+3. Install node.js v20, that version is compatible
 
 ```curl -fsSL https://fnm.vercel.app/install | bash```
 
